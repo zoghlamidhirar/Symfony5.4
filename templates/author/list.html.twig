@@ -1,0 +1,31 @@
+{% set x=0 %} {% set i=1 %} {% if authors is defined and authors|length > 0 %}
+<h1>List of Authors</h1>
+<table border="1">
+  <tr>
+    <td>Id</td>
+    <td>Name</td>
+    <td>Email</td>
+    <td>Books</td>
+    <td>Actions</td>
+    <td>Pictures</td>
+  </tr>
+  {% for author in authors %}
+  <tr>
+    <td>{{ author.id }}</td>
+    <td>{{ author.username | upper }}</td>
+    <td>{{ author.email }}</td>
+    <td>{{ author.nb_books }}</td>
+    <td><a href="#">Show more +</a></td>
+    <td>
+      <img src="{{ asset("images/{{i}}.jfif") }}" alt="{{ i }}" height="100"
+      width="100">
+    </td>
+  </tr>
+
+  {% set x=x+author.nb_books %} {% set i=i+1 %} {% endfor %}
+</table>
+
+{% else %}
+<p>No authors available.</p>
+{% endif %} Nbr of Authors: {{ authors | length }} <br />
+Nbr of books: {{ x }} <br />

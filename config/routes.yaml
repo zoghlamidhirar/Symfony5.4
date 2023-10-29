@@ -1,0 +1,27 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+home:
+    path: /home1
+    controller: App\Controller\HomeController::index1
+
+author_list:
+    path: /authors
+    controller: App\Controller\AuthorController::list
+
+author_update:
+    path: /author/update/{id}
+    controller: App\Controller\AuthorController::updateAuthor
+
+author_delete:
+    path: /author/delete/{id}
+    controller: App\Controller\AuthorController::deleteAuthor
+
+book_update:
+    path: /updateBook/{ref}
+    controller: App\Controller\BookController::updateBook
+
+delete_book:
+    path: /delete/{ref}
+    controller: App\Controller\BookController::deleteBook
