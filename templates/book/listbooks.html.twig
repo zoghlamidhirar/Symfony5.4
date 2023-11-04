@@ -1,4 +1,18 @@
 <h1 align="center">List of books</h1>
+
+<form method="get" action="{{ path('search_book_by_ref') }}">
+  <div>
+    <label for="ref">Ref</label>
+    <input
+      type="text"
+      name="ref"
+      id="ref"
+      value="{{ app.request.query.get('ref') }}"
+    />
+    <button type="submit">Search</button>
+  </div>
+</form>
+
 {% if tabBooks is empty %}
 <h1>No Books found</h1>
 {% else %} {% set published_Book=0 %} {% set unpublished_Book=0 %}
@@ -25,7 +39,7 @@
     <td>
       <a href="{{ path('book_update', { ref: book.ref }) }}">edit</a>
       <a href="{{ path('delete_book', { ref: book.ref }) }}">delete</a>
-      <a href="#">show</a>
+      <a href="{{ path('show_book', { ref: book.ref }) }}">show</a>
     </td>
   </tr>
   {% endfor %}

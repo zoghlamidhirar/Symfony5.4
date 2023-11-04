@@ -48,9 +48,9 @@ class BookController extends AbstractController
             $em = $managerRegistry->getManager();
 
             $book->setPublished('true');
-            //$nbrBook = $book->getAuthor()->getNbBooks();
+            $nbrBook = $book->getAuthor()->getNbBooks();
 
-            //$book->getAuthor()->setNbBooks($nbrBook + 1);
+            $book->getAuthor()->setNbBooks($nbrBook + 1);
 
             $em->persist($book);
             $em->flush();
@@ -92,5 +92,37 @@ class BookController extends AbstractController
         }
 
         return $this->redirectToRoute("list_books");
+    }
+
+    /**
+     * @Route("/showBook/{ref}", name="show_book")
+     */
+    public function showBook($ref, BookRepository $repository)
+    {
+        $book = $repository->find($ref);
+
+        if (!$book) {
+            //Book not found
+            //to tryyyyyy: throwing an exception ... 
+            throw $this->createNotFoundException('The book does not exist.');
+        }
+
+        return $this->render('book/showdetails.html.twig', [
+            'book' => $book,
+        ]);
+    }
+
+    /**
+     * @Route("/booksearchbyref", name="search_book_by_ref")
+     */
+    public function searchBookByRef(BookRepository $repository,  Request $request)
+    {
+        $ref = $request->query->get('ref');
+        $books = $repository->searchBookByRef($ref);
+
+        return $this->render(
+            "book/listbooksbyref.html.twig",
+            array('tabBooks' => $books)
+        );
     }
 }

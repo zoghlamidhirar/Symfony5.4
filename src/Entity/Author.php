@@ -21,11 +21,12 @@ class Author
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
-    #[ORM\Column]
-    private ?int $nb_books = null;
 
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Book::class)]
     private Collection $books;
+
+    #[ORM\Column]
+    private ?int $nb_books = null;
 
     public function __construct()
     {
@@ -61,17 +62,6 @@ class Author
         return $this;
     }
 
-    public function getNbBooks(): ?int
-    {
-        return $this->nb_books;
-    }
-
-    public function setNbBooks(int $nb_books): static
-    {
-        $this->nb_books = $nb_books;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Book>
@@ -99,6 +89,18 @@ class Author
                 $book->setAuthor(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNbBooks(): ?int
+    {
+        return $this->nb_books;
+    }
+
+    public function setNbBooks(int $nb_books): static
+    {
+        $this->nb_books = $nb_books;
 
         return $this;
     }

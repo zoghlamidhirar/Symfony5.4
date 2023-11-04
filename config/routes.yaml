@@ -25,3 +25,7 @@ book_update:
 delete_book:
     path: /delete/{ref}
     controller: App\Controller\BookController::deleteBook
+
+show_book:
+    path: /showBook/{ref}
+    controller: App\Controller\BookController::showBook
